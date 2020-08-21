@@ -7,18 +7,37 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
 </head>
 <body>
+    <!-- Header -->
     <header>
-        <h1 id="#">Welcome!</h1>
+        <h1 id="#">Howdy!</h1>
         <nav>
             <!-- HighScore Link -->
-            <h2 class="high-score" id="high-score">
-                HighScores!
+            <h2 class="high-score">
+                <a href="#high-score">HighScores</a>
             </h2>
         </nav>
     </header>
 
-    <!-- Quiz Body -->
-    <main class="wrapper">
+    <!-- Beginning Start Screen  -->
+    <div class="start-body wrapper hide">
+        <h2>
+            Welcome to my Coder Quiz.
+        </h2>
+        <br />
+        <h3>
+            As you may have guessed, I'll have you answer some questions regarding Coding!
+            You'll be timed and given a score! See if you can beat the best.
+            <br /> 
+            Good Luck :D
+        </h3>
+        
+        <p>Click start to begin!</p>
+        
+        <button class="btn" id="start-button">Start</button>
+    </div>
+
+    <!-- Quiz Answer Body -->
+    <main class="quiz-body wrapper hide">
         <h3>
             Time Left:
             <span id="count">75</span>
@@ -34,28 +53,45 @@
                 <ul class="quiz-answerList">
                     <!-- List of Quiz Answers Given -->
                     <li>
-                        <button id="answer-1">none</button>
+                        <button class="btn" id="answer-1">none</button>
                     </li>
                     <li>
-                        <button id="answer-2">none</button>
+                        <button class="btn" id="answer-2">none</button>
                     </li>
                     <li>
-                        <button id="answer-3">none</button>
+                        <button class="btn" id="answer-3">none</button>
                     </li>
                     <li>
-                        <button id="answer-4">none</button>
+                        <button class="btn" id="answer-4">none</button>
                     </li>
                 </ul>
             </div>
         </div>
     </main>
 
+    <!-- Validation Body -->
+    <div class="validation-body hide">
+        <h5 id="validation">Correct!</h5>
+    </div>
+
+    <!-- End Score Body-->
+    <div class="end-score wrapper hide">
+        <h2 class="userScore"> Your score is <span id="userHighscore"></span></h2>
+        <label for="name">Enter your Initials to record your score!</label>
+        <input type="text" id="userIn" name="high-score" placeholder="Here" required minlength="0" maxlength="5"> 
+        <input class="sub-btn" type="submit">
+    </div>
+
+    <!-- HighScore Body -->
+    <div class="highscore-card wrapper hide" id="high-score">
+        <h2>These are the latest High-Scores!</h2>
+        <ol class="recorded-scores"></ol>
+    </div>
+
     <!-- Footer -->
-    <footer>
         <footer>
-            <h3> <a href="#">Made With ❤️</h3>
-        </footer>  
-    </footer>
+            <h3><a href="#">Made With ❤️</a></h3>
+        </footer>
 
     <!-- JS Script -->
     <script src="./assets/script/script.js"></script>
