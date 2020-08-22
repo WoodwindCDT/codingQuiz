@@ -19,7 +19,7 @@
     </header>
 
     <!-- Beginning Start Screen  -->
-    <div class="start-body wrapper hide">
+    <div class="start-body wrapper" id="startCard">
         <h2>
             Welcome to my Coder Quiz.
         </h2>
@@ -37,15 +37,15 @@
     </div>
 
     <!-- Quiz Answer Body -->
-    <main class="quiz-body wrapper hide">
+    <main class="quiz-body wrapper" id="quizSection" style="display: block;">
         <h3>
             Time Left:
             <span id="count">75</span>
         </h3>
         <div class="container">
             <!-- Quiz Section Header-->
-            <div class="quiz-head">
-                <h4 class="quiz-info" id="quiz-info">Quiz Information</h4>
+            <div class="quiz-info" id="questions">
+                <p>Quiz Information</p>
             </div>
             <!-- Quiz Answer Area-->
             <div class="quiz-answer">
@@ -53,16 +53,16 @@
                 <ul class="quiz-answerList">
                     <!-- List of Quiz Answers Given -->
                     <li>
-                        <button class="btn" id="answer-1">none</button>
+                        <button class="btn" id="1" onclick="checkAnswer('a')">A</button>
                     </li>
                     <li>
-                        <button class="btn" id="answer-2">none</button>
+                        <button class="btn" id="2" onclick="checkAnswer('b')">B</button>
                     </li>
                     <li>
-                        <button class="btn" id="answer-3">none</button>
+                        <button class="btn" id="3" onclick="checkAnswer('c')">C</button>
                     </li>
                     <li>
-                        <button class="btn" id="answer-4">none</button>
+                        <button class="btn" id="4" onclick="checkAnswer('d')">D</button>
                     </li>
                 </ul>
             </div>
@@ -70,20 +70,20 @@
     </main>
 
     <!-- Validation Body -->
-    <div class="validation-body hide">
+    <div class="validation-body" id="validateSection" style="display: none;">
         <h5 id="validation">Correct!</h5>
     </div>
 
     <!-- End Score Body-->
-    <div class="end-score wrapper hide">
+    <div class="end-score wrapper" id="endGameSection" style="display: none;">
         <h2 class="userScore"> Your score is <span id="userHighscore"></span></h2>
         <label for="name">Enter your Initials to record your score!</label>
-        <input type="text" id="userIn" name="high-score" placeholder="Here" required minlength="0" maxlength="5"> 
+        <input type="text" id="userInit" name="high-score" placeholder="Here" required minlength="0" maxlength="5"> 
         <input class="sub-btn" type="submit">
     </div>
 
     <!-- HighScore Body -->
-    <div class="highscore-card wrapper hide" id="high-score">
+    <div class="highscore-card wrapper" id="highScoreSection" style="display: none;">
         <h2>These are the latest High-Scores!</h2>
         <ol class="recorded-scores"></ol>
     </div>
