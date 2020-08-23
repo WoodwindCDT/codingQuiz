@@ -13,6 +13,8 @@ var buttonA = document.getElementById("1");
 var buttonB = document.getElementById("2");
 var buttonC = document.getElementById("3");
 var buttonD = document.getElementById("4");
+
+// Question Array 
 var quizQuestions = [ 
     {
     question: "Commonly used data types DO NOT include: _____",
@@ -20,7 +22,7 @@ var quizQuestions = [
     choiceB: "Booleans",
     choiceC: "Alerts",
     choiceD: "Numbers",
-    answer: "3"
+    answer: "c"
     },
     {
     question: "What does DOM stand for?",
@@ -28,7 +30,7 @@ var quizQuestions = [
     choiceB: "Display Object Management",
     choiceC: "Digital Ordinance Model",
     choiceD: "Desktop Oriented Mode",
-    answer: "1"
+    answer: "a"
     },
     {
     question: "This is used primarily to add styling to a web page: _____",
@@ -36,28 +38,36 @@ var quizQuestions = [
     choiceB: "CSS",
     choiceC: "Python",
     choiceD: "React.js",
-    answer: "2"
+    answer: "b"
+    },
+    {
+    question: "When is localStorage data cleared?",
+    choiceA: "On browser close",
+    choiceB: "On page reload",
+    choiceC: "It does not expire",
+    choiceD: "On computer restart",
+    answer: "c" 
     },
 ];
 
 var finalQuestionIndex = quizQuestions.length;
 var questionIndex = 0;
 var totalCorrect = 0;
-var finalScore = 0;
+var correct;
 
 var timerE1 = document.querySelector("#count");
 var count;
 var timer = 75;
+var finalScore = 0 + timer;
 var timeInterval;
 
 var genQuesAns = function () {
-    validSectionC.style.display = "none";
-    validSectionI.style.display = "none";
-
+    clearInterval(validSectionC, validSectionI);
     if (questionIndex === finalQuestionIndex){
         return endQuiz();
     }
 
+    // To populate buttons from array
     var currentQuestion = quizQuestions[questionIndex];
     questionsEl.innerHTML = `<h2>${currentQuestion.question}</h2>`;
     buttonA.innerHTML = currentQuestion.choiceA;
@@ -66,6 +76,7 @@ var genQuesAns = function () {
     buttonD.innerHTML = currentQuestion.choiceD;
 };
 
+// Start Quiz Card
 var startQuiz = function() {
     startSection.style.display = "none";
     quizSection.style.display = "block";
@@ -81,48 +92,54 @@ var startQuiz = function() {
         timerE1.textContent = "";
         endQuiz();
     }
-     }, 10);
+     }, 1000);
      genQuesAns();
+     
 };
 
+// After user has answered all questions or timer = 0
 var endQuiz = function() {
+    // Hide functionality
     quizSection.style.display = "none";
     endSection.style.display = "block";
+    validSectionC.style.display = "none";
+    validSectionI.style.display = "none";
+    
 
-    userHighscore.textContent = finalScore;
+    // To display user's score
+    userHighscore.textContent = finalScore + timer;
 };
 
+// Card to show recorded High Scores
 var showHighScore = function() {
     endSection.style.display = "none";
     scoreSection.style.display = "block";
+    startSection.style.display = "none";
+    quizSection.style.display = "none";
+    validSectionC.style.display = "none";
+    validSectionI.style.display = "none";
 };
-
-//var startQuiz = function() {
-   // startSection.style.display = "none";
-   // quizSection.style.display = "block";
-//}
 
 // Quiz Card Checking the Answer
 function checkAnswer(answer) {
-    correct = quizQuestions[currentQuestionInd].correctAnswer;
-        if (answer == correct) {
-            finalScore++;
-            console.log(finalScore);
-            currentQuestionInd++;
+    correct = quizQuestions[questionIndex].answer;
+        
+    if (answer === correct && questionIndex !== finalQuestionIndex) {
+            finalScore += 5;
+            timer += 5;
+            questionIndex ++;
             validSectionC.style.display = "block";
-            genQuizAnswer();
+            validSectionI.style.display = "none";
+            genQuesAns();
         }
-        else if (answer !== correct) {
+        else if (answer !== correct && questionIndex !== finalQuestionIndex) {
+            finalScore -= 15;
+            timer -= 15;
+            questionIndex ++;
+            validSectionC.style.display = "none";
             validSectionI.style.display = "block";
-            finalScore--;
-            currentQuestionInd++;
-            genQuizAnswer();
+            genQuesAns();
         }
-}
+    };
 
-// Validate Section
-// var validate
-    
-
-// firstCard();
 startButton.addEventListener("click", startQuiz);

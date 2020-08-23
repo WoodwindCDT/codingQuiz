@@ -59,7 +59,7 @@
 }
 
 .btn:hover, .start-button:hover {
-    width: 16%;
+    width: 32%;
     font-weight: bold;
     opacity: 1;
     background-color: whitesmoke;
@@ -121,6 +121,7 @@ header h2 a:hover {
 
 .quiz-body button {
     font-size: 15px;
+    width: 30%;
 }
 
 .quiz-info {
