@@ -13,6 +13,7 @@
         <nav>
             <!-- HighScore Link -->
             <h2 class="high-score">
+                <!-- FIX HIGHSCORE ISSUE -->
                 <a href="#high-score" onclick="showHighScore()">HighScores</a>
             </h2>
         </nav>
@@ -88,16 +89,19 @@
 
         <label for="name" class="oblique">Enter your Initials to record your score!</label>
 
-        <input type="text" id="userInit" name="high-score" placeholder="Here" required minlength="0" maxlength="5"> 
+        <input type="text" id="userInit" name="initials" placeholder="Here" required minlength="0" maxlength="5"> 
         
         <button class="sub-btn" type="submit" id="submitScore">Submit Results</button>
     </div>
 
     <!-- HighScore Body -->
-    <div class="highscore-card wrapper" id="highScoreSection" style="display: none;">
+    <div class="highscore-card wrapper-score" id="highScoreSection" style="display: none;">
         <h2>These are the latest High-Scores!</h2>
-        <ol class="recorded-scores"></ol>
+        <div id = "highscore-initials"></div>
+        <div id = "highscore-score"></div>
     </div>
+
+    <!-- ADD RESET BUTTON & CLEAR SCORE BUTTON -->
 
     <!-- Footer -->
         <footer>

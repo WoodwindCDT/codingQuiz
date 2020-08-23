@@ -7,8 +7,12 @@ var validSectionI = document.querySelector("#validateSectionI");
 var endSection = document.querySelector("#endGameSection");
 var scoreSection = document.querySelector("#highScoreSection");
 var startButton = document.querySelector("#start-button");
+var submitButton = document.querySelector("#submitScore");
 var choiceContainer = document.querySelector("#choice-container");
 var userHighScore = document.querySelector("#userHighscore");
+var userDisplayScore = document.querySelector("#highscore-score");
+var userDisplayName = document.querySelector("#highscore-initials");
+var userInitials = document.querySelector("#userInit");
 var buttonA = document.getElementById("1");
 var buttonB = document.getElementById("2");
 var buttonC = document.getElementById("3");
@@ -48,6 +52,14 @@ var quizQuestions = [
     choiceD: "On computer restart",
     answer: "c" 
     },
+    {
+    question: "What HTML attribute references an external JavaScript file?",
+    choiceA: "Href",
+    choiceB: "Src",
+    choiceC: "Class",
+    choiceD: "Index",
+    answer: "b"
+    },
 ];
 
 var finalQuestionIndex = quizQuestions.length;
@@ -58,7 +70,7 @@ var correct;
 var timerE1 = document.querySelector("#count");
 var count;
 var timer = 75;
-var finalScore = 0 + timer;
+var finalScore = 0;
 var timeInterval;
 
 var genQuesAns = function () {
@@ -87,7 +99,7 @@ var startQuiz = function() {
         timer --;
         timerE1.textContent = timer;
     }
-    if (timer === 0) {
+    if (timer == 0) {
         clearInterval(timer);
         timerE1.textContent = "";
         endQuiz();
@@ -99,25 +111,65 @@ var startQuiz = function() {
 
 // After user has answered all questions or timer = 0
 var endQuiz = function() {
+    // To display user's score
+    userHighscore.textContent = finalScore + timer;
     // Hide functionality
     quizSection.style.display = "none";
     endSection.style.display = "block";
     validSectionC.style.display = "none";
     validSectionI.style.display = "none";
-    
 
-    // To display user's score
-    userHighscore.textContent = finalScore + timer;
-};
+    // To find value of initials string
+    userInitials.value = "";
+
+        submitButton.addEventListener("click", function highscore() {
+
+        if ( userInitials.value === "") {
+            alert("Please Enter Initials!")
+            return false;
+        }
+        else {
+            var userSavedScore = JSON.parse(localStorage.getItem("userSavedData")) || [];
+            var activeUser = userInitials.value;
+            var activeUserProfile = {
+                Name: activeUser,
+                HighScore: finalScore
+            };
+
+            userSavedScore.push(activeUserProfile);
+            localStorage.setItem("userSavedData", JSON.stringify(userSavedScore));
+            
+            showHighScore();
+        }         
+    });
 
 // Card to show recorded High Scores
 var showHighScore = function() {
-    endSection.style.display = "none";
-    scoreSection.style.display = "block";
-    startSection.style.display = "none";
-    quizSection.style.display = "none";
-    validSectionC.style.display = "none";
-    validSectionI.style.display = "none";
+        endSection.style.display = "none";
+        scoreSection.style.display = "block";
+        startSection.style.display = "none";
+        quizSection.style.display = "none";
+        validSectionC.style.display = "none";
+        validSectionI.style.display = "none";
+
+        generateHighScore();
+}
+
+function generateHighScore() {
+    // To display score & name
+    userDisplayName.innerHTML = "";
+    userDisplayScore.innerHTML = "";
+
+    var currentData = JSON.parse(localStorage.getItem("userSavedData"));
+        for (i = 0; i < currentData.length; i++) {
+            var newUserName = document.createElement("ol");
+            var newUserScore = document.createElement("ol");
+            newUserName.textContent = currentData[i].Name;
+            newUserScore.textContent = currentData[i].HighScore;
+            userDisplayName.appendChild(newUserName);
+            userDisplayScore.appendChild(newUserScore);
+        }
+    }
 };
 
 // Quiz Card Checking the Answer
@@ -133,7 +185,7 @@ function checkAnswer(answer) {
             genQuesAns();
         }
         else if (answer !== correct && questionIndex !== finalQuestionIndex) {
-            finalScore -= 15;
+            finalScore -= 12;
             timer -= 15;
             questionIndex ++;
             validSectionC.style.display = "none";
