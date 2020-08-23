@@ -27,31 +27,45 @@
 
 .sub-btn {
     background-color: var(--color-3);
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 4px;
-    width: 8%;
+    width: 15%;
     line-height: 1.5;
 }
 
-.btn {
+.start-button {
     background-color: var(--color-3);
     border: 2px solid black;
     border-radius: 10px;
     width: 15%;
     line-height: 2.3;
-    margin: 5px;
+    margin: 8px;
     opacity: 0.7;
     transition: 0.2s;
     outline: none;
 }
 
-.btn:hover {
+.btn {
+    display: block;
+    background-color: var(--color-3);
+    border: 2px solid black;
+    border-radius: 10px;
+    width: 15%;
+    line-height: 2.3;
+    margin: 8px;
+    opacity: 0.7;
+    transition: 0.2s;
+    outline: none;
+}
+
+.btn:hover, .start-button:hover {
     width: 16%;
+    font-weight: bold;
     opacity: 1;
     background-color: whitesmoke;
 }
 
-.btn:focus {
+.btn:focus, .start-buttonfocus {
     background-color: var(--color-3);
     opacity: 1;
 }
@@ -88,8 +102,8 @@ header h2 a:hover {
     text-align: center;
 }
 
-.start-body p {
-    margin: 10px;
+.oblique {
+    margin: 10px 0;
     font-size: 22px;
     font-style: oblique;
 }
@@ -102,13 +116,16 @@ header h2 a:hover {
 }
 
 .quiz-body ul li {
-    font-weight: bold;
     list-style: none;
+}
+
+.quiz-body button {
+    font-size: 15px;
 }
 
 .quiz-info {
     margin: 10px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 /* Validation Body */
@@ -120,8 +137,14 @@ header h2 a:hover {
     width: 50%;
 }
 
+/* User Initials Submit Card */
+.userScoreText {
+    text-align: center;
+}
 
-
+.scoreIntro {
+    font-weight: bold;
+}
 
 /* Footer Styling */
 footer {

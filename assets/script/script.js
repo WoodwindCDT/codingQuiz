@@ -1,103 +1,128 @@
-// GIVEN I am taking a code quiz
-
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-
-// WHEN I answer a question
-// THEN I am presented with another question
-
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-
-// WHEN the game is over
-// THEN I can save my initials and score
-
-var startSectionEl = document.querySelector("#startCard");
-var quizSectionEl = document.querySelector("#quizSection");
-var validSectionEl = document.querySelector("#validateSection");
-var endSectionEl = document.querySelector("#endGameSection");
-var scoreSectionEl = document.querySelector("#highScoreSection");
+// Grabbing from HTML/ Global variables
+var startSection = document.querySelector("#startCard");
+var quizSection = document.querySelector("#quizSection");
+var questionsEl = document.querySelector("#questions");
+var validSectionC = document.querySelector("#validateSectionC");
+var validSectionI = document.querySelector("#validateSectionI");
+var endSection = document.querySelector("#endGameSection");
+var scoreSection = document.querySelector("#highScoreSection");
 var startButton = document.querySelector("#start-button");
-
-var timerE1 = document.querySelector("#count");
-var correct;
-var totalCorrect = 0;
-var finalScore = 0;
-var timeInterval;
-
-var quizQuestions = [ {
-    question: "How many elements can you apply an 'ID' attribute to?",
-    choiceA: "As many as you want",
-    choiceB: "3",
-    choiceC: "1",
-    choiceD: "128",
-    correctAnswer: "c"},
-  {
-    question: "DOM stands for _____.",
+var choiceContainer = document.querySelector("#choice-container");
+var userHighScore = document.querySelector("#userHighscore");
+var buttonA = document.getElementById("1");
+var buttonB = document.getElementById("2");
+var buttonC = document.getElementById("3");
+var buttonD = document.getElementById("4");
+var quizQuestions = [ 
+    {
+    question: "Commonly used data types DO NOT include: _____",
+    choiceA: "Strings",
+    choiceB: "Booleans",
+    choiceC: "Alerts",
+    choiceD: "Numbers",
+    answer: "3"
+    },
+    {
+    question: "What does DOM stand for?",
     choiceA: "Document Object Model",
     choiceB: "Display Object Management",
     choiceC: "Digital Ordinance Model",
     choiceD: "Desktop Oriented Mode",
-    correctAnswer: "a"},
-   {
+    answer: "1"
+    },
+    {
     question: "This is used primarily to add styling to a web page: _____",
     choiceA: "HTML",
     choiceB: "CSS",
     choiceC: "Python",
     choiceD: "React.js",
-    correctAnswer: "b"},
+    answer: "2"
+    },
 ];
 
-function count() {
-    var timer = 75;
+var finalQuestionIndex = quizQuestions.length;
+var questionIndex = 0;
+var totalCorrect = 0;
+var finalScore = 0;
 
-timeInterval = setInterval(function() {
+var timerE1 = document.querySelector("#count");
+var count;
+var timer = 75;
+var timeInterval;
+
+var genQuesAns = function () {
+    validSectionC.style.display = "none";
+    validSectionI.style.display = "none";
+
+    if (questionIndex === finalQuestionIndex){
+        return endQuiz();
+    }
+
+    var currentQuestion = quizQuestions[questionIndex];
+    questionsEl.innerHTML = `<h2>${currentQuestion.question}</h2>`;
+    buttonA.innerHTML = currentQuestion.choiceA;
+    buttonB.innerHTML = currentQuestion.choiceB;
+    buttonC.innerHTML = currentQuestion.choiceC;
+    buttonD.innerHTML = currentQuestion.choiceD;
+};
+
+var startQuiz = function() {
+    startSection.style.display = "none";
+    quizSection.style.display = "block";
+    
+    // Function for timer
+    timeInterval = setInterval(function() {
     if (timer >= 1) {
         timer --;
         timerE1.textContent = timer;
     }
-    else if (timer = 0) {
-        timerEl.textContent = "";
+    if (timer === 0) {
+        clearInterval(timer);
+        timerE1.textContent = "";
+        endQuiz();
     }
-     }, 1000);
-}
-
-// Hide Card Funtion
-var hideCard = function() {
-    var hide = document.getElementById("startCard");
-    hide.style.display = "none";
-    if (hide.style.display = "none") {
-        quizSectionEl.style.display = "block";
-    }
+     }, 10);
+     genQuesAns();
 };
 
-// Start Card
-var firstCard = function() {
-    startButton = document.querySelector("#start-button");
-    startButton.addEventListener("click", hideCard, count);
-}
+var endQuiz = function() {
+    quizSection.style.display = "none";
+    endSection.style.display = "block";
 
-// Quiz Card
-var secondCard = function() {
-    timerE1.textContent = count;
-    for (i=0; i < questions.length; i++) {
-        var answer = confirm(questions[i].question);
-        if (answer === questions[i].correctAnswers) {
-            alert("correct")
-            totalCorrect ++;
-        }
-        else {
-            display
-        }
-    }
+    userHighscore.textContent = finalScore;
 };
+
+var showHighScore = function() {
+    endSection.style.display = "none";
+    scoreSection.style.display = "block";
+};
+
+//var startQuiz = function() {
+   // startSection.style.display = "none";
+   // quizSection.style.display = "block";
+//}
+
+// Quiz Card Checking the Answer
+function checkAnswer(answer) {
+    correct = quizQuestions[currentQuestionInd].correctAnswer;
+        if (answer == correct) {
+            finalScore++;
+            console.log(finalScore);
+            currentQuestionInd++;
+            validSectionC.style.display = "block";
+            genQuizAnswer();
+        }
+        else if (answer !== correct) {
+            validSectionI.style.display = "block";
+            finalScore--;
+            currentQuestionInd++;
+            genQuizAnswer();
+        }
+}
 
 // Validate Section
-var validate
+// var validate
     
 
-firstCard();
-startButton.onclick = count;
+// firstCard();
+startButton.addEventListener("click", startQuiz);

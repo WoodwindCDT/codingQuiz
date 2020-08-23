@@ -13,7 +13,7 @@
         <nav>
             <!-- HighScore Link -->
             <h2 class="high-score">
-                <a href="#high-score">HighScores</a>
+                <a href="#high-score" onclick="showHighScore()">HighScores</a>
             </h2>
         </nav>
     </header>
@@ -31,13 +31,13 @@
             Good Luck :D
         </h3>
         
-        <p>Click start to begin!</p>
+        <p class="oblique">Click start to begin!</p>
         
-        <button class="btn" id="start-button">Start</button>
+        <button class="start-button" id="start-button">Start</button>
     </div>
 
     <!-- Quiz Answer Body -->
-    <main class="quiz-body wrapper" id="quizSection" style="display: block;">
+    <main class="quiz-body wrapper" id="quizSection" style="display: none;">
         <h3>
             Time Left:
             <span id="count">75</span>
@@ -45,41 +45,52 @@
         <div class="container">
             <!-- Quiz Section Header-->
             <div class="quiz-info" id="questions">
-                <p>Quiz Information</p>
+                <h2>Questions Placeholder</h2>
             </div>
             <!-- Quiz Answer Area-->
             <div class="quiz-answer">
                 <!-- Quiz Answer Lift-->
-                <ul class="quiz-answerList">
+                <div>
+                    <ul class="quiz-answerList" id="quiz-answerList">
                     <!-- List of Quiz Answers Given -->
-                    <li>
+                    <li class="quiz-answerList">
                         <button class="btn" id="1" onclick="checkAnswer('a')">A</button>
                     </li>
-                    <li>
+                    <li class="quiz-answerList">
                         <button class="btn" id="2" onclick="checkAnswer('b')">B</button>
                     </li>
-                    <li>
+                    <li class="quiz-answerList">
                         <button class="btn" id="3" onclick="checkAnswer('c')">C</button>
                     </li>
-                    <li>
+                    <li class="quiz-answerList">
                         <button class="btn" id="4" onclick="checkAnswer('d')">D</button>
                     </li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
     </main>
 
     <!-- Validation Body -->
-    <div class="validation-body" id="validateSection" style="display: none;">
+    <div class="validation-body" id="validateSectionC" style="display: none;">
         <h5 id="validation">Correct!</h5>
+    </div>
+
+    <div class="validation-body" id="validateSectionI" style="display: none;">
+        <h5 id="validation">Incorrect!</h5>
     </div>
 
     <!-- End Score Body-->
     <div class="end-score wrapper" id="endGameSection" style="display: none;">
-        <h2 class="userScore"> Your score is <span id="userHighscore"></span></h2>
-        <label for="name">Enter your Initials to record your score!</label>
+        <h2 class="userScoreText"> Game Over!</h2>
+            <br />
+            <h2 class="scoreIntro">Your Score is: <span id="userHighscore"></span></h2>
+
+        <label for="name" class="oblique">Enter your Initials to record your score!</label>
+
         <input type="text" id="userInit" name="high-score" placeholder="Here" required minlength="0" maxlength="5"> 
-        <input class="sub-btn" type="submit">
+        
+        <button class="sub-btn" type="submit" id="submitScore">Submit Results</button>
     </div>
 
     <!-- HighScore Body -->
