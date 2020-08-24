@@ -79,13 +79,16 @@ var genQuesAns = function () {
     if (questionIndex === finalQuestionIndex){
         return endQuiz();
     }
-
     // To populate buttons from array
     var currentQuestion = quizQuestions[questionIndex];
     questionsEl.innerHTML = `<h2>${currentQuestion.question}</h2>`;
+
     buttonA.innerHTML = currentQuestion.choiceA;
+
     buttonB.innerHTML = currentQuestion.choiceB;
+
     buttonC.innerHTML = currentQuestion.choiceC;
+
     buttonD.innerHTML = currentQuestion.choiceD;
 };
 
@@ -195,15 +198,16 @@ function clearStorage(){
     window.localStorage.clear();
     userDisplayName.textContent = "";
     userDisplayScore.textContent = "";
-}
+};
 
 function restartQuiz() {
     startSection.style.display = "block";
     scoreSection.style.display = "none";
+    endSection.style.display = "none";
     timer = 75;
     finalScore = 0;
     questionIndex = 0;
-}
+};
 
 
 // Button Event Listeners

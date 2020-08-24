@@ -133,9 +133,9 @@ header h2 a:hover {
 .validation-body {
     font-size: 20px;
     position: relative;
-    margin: 5px 0 5px 20%;
-    border-bottom: 2px solid grey;
-    width: 50%;
+    text-align: center;
+    margin-top: 3px;
+    margin-right: 6.5in;
 }
 
 /* User Initials Submit Card */
