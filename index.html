@@ -13,8 +13,7 @@
         <nav>
             <!-- HighScore Link -->
             <h2 class="high-score">
-                <!-- FIX HIGHSCORE ISSUE -->
-                <a href="#high-score" onclick="showHighScore()">HighScores</a>
+                <a href="#high-score" id="goToScore">HighScores</a>
             </h2>
         </nav>
     </header>
@@ -96,9 +95,19 @@
 
     <!-- HighScore Body -->
     <div class="highscore-card wrapper-score" id="highScoreSection" style="display: none;">
-        <h2>These are the latest High-Scores!</h2>
-        <div id = "highscore-initials"></div>
-        <div id = "highscore-score"></div>
+        <h2>These are the latest Scores!</h2>
+        <div class="displayResults">
+            <h3>User Initials</h3>
+            <h3>Score</h3>
+        </div>
+        <div class="resultsSection">
+            <div id = "highscore-initials"></div>
+            <div id = "highscore-score"></div>
+        </div>
+        <div class="xtra-btn">
+        <button class="btn restart-btn" id="restart">Restart</button>
+        <button class="btn clear-score-btn" id="clearScores">Clear Scores</button>
+        </div>
     </div>
 
     <!-- ADD RESET BUTTON & CLEAR SCORE BUTTON -->

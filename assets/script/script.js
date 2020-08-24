@@ -13,13 +13,16 @@ var userHighScore = document.querySelector("#userHighscore");
 var userDisplayScore = document.querySelector("#highscore-score");
 var userDisplayName = document.querySelector("#highscore-initials");
 var userInitials = document.querySelector("#userInit");
+var goToScore = document.querySelector("#goToScore");
+var clearScores = document.querySelector("#clearScores");
+var restart = document.querySelector("#restart");
 var buttonA = document.getElementById("1");
 var buttonB = document.getElementById("2");
 var buttonC = document.getElementById("3");
 var buttonD = document.getElementById("4");
 
 // Question Array 
-var quizQuestions = [ 
+var quizQuestions = [
     {
     question: "Commonly used data types DO NOT include: _____",
     choiceA: "Strings",
@@ -64,9 +67,7 @@ var quizQuestions = [
 
 var finalQuestionIndex = quizQuestions.length;
 var questionIndex = 0;
-var totalCorrect = 0;
 var correct;
-
 var timerE1 = document.querySelector("#count");
 var count;
 var timer = 75;
@@ -103,15 +104,15 @@ var startQuiz = function() {
         clearInterval(timer);
         timerE1.textContent = "";
         endQuiz();
-    }
-     }, 1000);
-     genQuesAns();
-     
+        }
+    }, 1000);
+    genQuesAns(); 
 };
 
 // After user has answered all questions or timer = 0
 var endQuiz = function() {
     // To display user's score
+    var usersScore = finalScore + timer;
     userHighscore.textContent = finalScore + timer;
     // Hide functionality
     quizSection.style.display = "none";
@@ -122,26 +123,38 @@ var endQuiz = function() {
     // To find value of initials string
     userInitials.value = "";
 
-        submitButton.addEventListener("click", function highscore() {
+    submitButton.addEventListener("click", function highscore() {
+    {
+        var userSavedScore = JSON.parse(localStorage.getItem("userSavedData")) || [];
+        var activeUser = userInitials.value;
+        var activeUserProfile = {
+            name: activeUser,
+            highScore: usersScore
+        };
 
-        if ( userInitials.value === "") {
-            alert("Please Enter Initials!")
-            return false;
-        }
-        else {
-            var userSavedScore = JSON.parse(localStorage.getItem("userSavedData")) || [];
-            var activeUser = userInitials.value;
-            var activeUserProfile = {
-                Name: activeUser,
-                HighScore: finalScore
-            };
-
-            userSavedScore.push(activeUserProfile);
-            localStorage.setItem("userSavedData", JSON.stringify(userSavedScore));
+        userSavedScore.push(activeUserProfile);
+        localStorage.setItem("userSavedData", JSON.stringify(userSavedScore));
             
-            showHighScore();
-        }         
-    });
+        showHighScore();
+        }
+    })    
+};
+
+function generateHighScore() {
+    // To display score & name
+    userDisplayName.textContent = "";
+    userDisplayScore.textContent = "";
+    // Going through data to pick out User's Saved Data
+    var currentData = JSON.parse(localStorage.getItem("userSavedData"));
+        for (i = 0; i < currentData.length; i++) {
+        var newUserName = document.createElement("li");
+        var newUserScore = document.createElement("li");
+        newUserName.textContent = currentData[i].name;
+        newUserScore.textContent = currentData[i].highScore;
+        userDisplayName.appendChild(newUserName);
+        userDisplayScore.appendChild(newUserScore);
+    }
+};
 
 // Card to show recorded High Scores
 var showHighScore = function() {
@@ -151,27 +164,9 @@ var showHighScore = function() {
         quizSection.style.display = "none";
         validSectionC.style.display = "none";
         validSectionI.style.display = "none";
-
         generateHighScore();
-}
-
-function generateHighScore() {
-    // To display score & name
-    userDisplayName.innerHTML = "";
-    userDisplayScore.innerHTML = "";
-
-    var currentData = JSON.parse(localStorage.getItem("userSavedData"));
-        for (i = 0; i < currentData.length; i++) {
-            var newUserName = document.createElement("ol");
-            var newUserScore = document.createElement("ol");
-            newUserName.textContent = currentData[i].Name;
-            newUserScore.textContent = currentData[i].HighScore;
-            userDisplayName.appendChild(newUserName);
-            userDisplayScore.appendChild(newUserScore);
-        }
-    }
-};
-
+    };
+    
 // Quiz Card Checking the Answer
 function checkAnswer(answer) {
     correct = quizQuestions[questionIndex].answer;
@@ -185,7 +180,7 @@ function checkAnswer(answer) {
             genQuesAns();
         }
         else if (answer !== correct && questionIndex !== finalQuestionIndex) {
-            finalScore -= 12;
+            finalScore -= 5;
             timer -= 15;
             questionIndex ++;
             validSectionC.style.display = "none";
@@ -194,4 +189,25 @@ function checkAnswer(answer) {
         }
     };
 
+// More EventListener buttons
+// To clear Storage 
+function clearStorage(){
+    window.localStorage.clear();
+    userDisplayName.textContent = "";
+    userDisplayScore.textContent = "";
+}
+
+function restartQuiz() {
+    startSection.style.display = "block";
+    scoreSection.style.display = "none";
+    timer = 75;
+    finalScore = 0;
+    questionIndex = 0;
+}
+
+
+// Button Event Listeners
+restart.addEventListener("click", restartQuiz);
+clearScores.addEventListener("click", clearStorage);
+goToScore.addEventListener("click", showHighScore);
 startButton.addEventListener("click", startQuiz);

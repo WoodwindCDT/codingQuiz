@@ -160,8 +160,43 @@ header h2 a:hover {
     padding: 30px 40px;
 }
 
-.listed-score {
-    display: inline;
+/* High-Score Results Card */
+.displayResults {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 10px 0 10px 0;
+}
+
+#highscore-initials{
+    display: inline-block;
+    margin-left: 140px;
+}
+
+#highscore-score{
+    margin-right: 145px;
+    float: right;
+}
+
+.highscore-card {
+    text-align: center;
+}
+
+.resultsSection {
+    text-align: left;
+}
+
+.xtra-btn {
+    display: flex;
+    justify-content: space-between;
+}
+
+.restart-btn {
+    float: left;
+}
+
+.clear-score-btn {
+    float: right;
 }
 
 /* Footer Styling */
