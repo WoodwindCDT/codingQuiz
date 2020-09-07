@@ -201,12 +201,7 @@ function clearStorage(){
 };
 
 function restartQuiz() {
-    startSection.style.display = "block";
-    scoreSection.style.display = "none";
-    endSection.style.display = "none";
-    timer = 75;
-    finalScore = 0;
-    questionIndex = 0;
+    location.reload();
 };
 
 
